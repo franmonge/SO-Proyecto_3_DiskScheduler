@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -16,11 +17,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author FranM
  */
 public class Interface extends javax.swing.JFrame {
+    Controller controlador;
     static ArrayList<String> PETITIONS = new ArrayList<String>();
     /**
      * Creates new form Interfaz
      */
     public Interface() {
+        controlador = Controller.getInstance();        
         initComponents();
     }
 
@@ -115,6 +118,15 @@ public class Interface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnFIFOActionPerformed
 
+    private void BatchAddProcess(String processName,Integer priority, Integer timestamp) {                                              
+        if(!(processName == null)){                
+                Process nuevoProceso  = new Process(processName, priority, timestamp);  
+                controlador.addProcess(nuevoProceso);
+        }else{
+            JOptionPane.showMessageDialog(null,  "Process ID can't be empty", "Null PID Error", 0);
+        }
+    }
+    
     private void btnConfigurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigurationActionPerformed
         try {
             JFileChooser chooser = new JFileChooser();
@@ -122,15 +134,44 @@ public class Interface extends javax.swing.JFrame {
             chooser.setFileFilter(filter);
             int returnVal = chooser.showOpenDialog(null);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
+                Integer lineCounter = 1;
+                ArrayList<String> config = new ArrayList<String>();
                 String file = chooser.getSelectedFile().getPath();
                 String line;
                 FileReader f = new FileReader(file);
                 BufferedReader buffer = new BufferedReader(f);
+                
                 while((line = buffer.readLine()) != null){
-                    if(line.contains("CREATE PROCESS")){
-                        //llamar funcion de creacion de proceso
+                    //Las primeras 2 lineas del txt son de configuracion
+                    if(lineCounter <= 2){
+                        config.add(line);
+                        lineCounter++;
                     }
+                    else
+                        break;
                 }
+                    
+                String[] arrOfStr = null;
+                arrOfStr = config.get(0).split(":");
+                Integer totalTracks = Integer.parseInt(arrOfStr[1]);
+                arrOfStr = config.get(1).split(":");
+                Integer initialPoint = Integer.parseInt(arrOfStr[1]);
+                JOptionPane.showMessageDialog(null, "Total Tracks: " + totalTracks + "\n Initial Point: " + initialPoint, "Configuration", 1);
+                
+                controlador.setConfiguration(totalTracks, initialPoint);
+                
+                while((line = buffer.readLine()) != null){
+                    //Las primeras 2 lineas del txt son de configuracion
+                    if(lineCounter > 2){
+                        if(line.contains("CreateProcess")){
+                            arrOfStr = line.split(":",4);
+                            BatchAddProcess(arrOfStr[1],Integer.parseInt(arrOfStr[2]),Integer.parseInt(arrOfStr[3]));
+                            System.out.println("Process created: " + arrOfStr[1]);
+                        }
+                    }
+                    else
+                        break;
+                }                
             }
             System.out.println("Archivo .txt cargado correctamente");
         } catch (Exception e) {
