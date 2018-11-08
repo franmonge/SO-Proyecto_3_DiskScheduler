@@ -9,14 +9,20 @@ package diskscheduler;
  *
  * @author FranM
  */
-public class DiskScheduler {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Interface interfaz = new Interface();
-        interfaz.setVisible(true);
+public class Algorithms {
+    public void algoritthmFIFO(){
+    
     }
     
+    public void algoritthmLIFO(){
+    
+    }
+    
+    public void algoritthmRSS(){
+    
+    }
+    
+    public void algoritthmPRI(){
+    
+    }
 }
