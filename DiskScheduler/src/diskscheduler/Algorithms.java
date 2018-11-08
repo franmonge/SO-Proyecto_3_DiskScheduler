@@ -10,19 +10,19 @@ package diskscheduler;
  * @author FranM
  */
 public class Algorithms {
-    public void algoritthmFIFO(){
+    public void algorithmFIFO(){
     
     }
     
-    public void algoritthmLIFO(){
+    public void algorithmLIFO(){
     
     }
     
-    public void algoritthmRSS(){
+    public void algorithmRSS(){
     
     }
     
-    public void algoritthmPRI(){
+    public void algorithmPRI(){
     
     }
 }
