@@ -6,6 +6,7 @@
 package diskscheduler;
 
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -77,8 +78,27 @@ public class Algorithms {
         return requirements;
     }
     
-    public void algorithmRSS(ArrayList<Requirements> listRSS){
-    
+    public ArrayList<Requirements> algorithmRSS(ArrayList<Requirements> listRSS){
+        ArrayList<Process> processes = new ArrayList<>(Controller.getInstance().getProcesses());
+        ArrayList<Requirements> requirements = new ArrayList<>();
+        //Process priorityProcess = null;
+        
+        for(int i = 0; i <= processes.size(); i++){
+            int randomNum = ThreadLocalRandom.current().nextInt(0, processes.size());
+            //priorityProcess = Controller.getInstance().getHighestPriorityProcess(processes);
+            
+            for(int j = 0; j < listRSS.size(); j++){
+                if(listRSS.get(j).getProcess().equals(processes.get(randomNum).getName())){
+                    requirements.add(listRSS.get(j));                    
+                    listRSS.remove(j);
+                    j--;
+                }            
+            }
+            processes.remove(randomNum);
+            if(processes.size() != 0)
+                i--;
+        } 
+        return requirements;
     }
     
 }

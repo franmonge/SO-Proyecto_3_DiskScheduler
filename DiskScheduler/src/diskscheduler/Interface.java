@@ -86,6 +86,11 @@ public class Interface extends javax.swing.JFrame {
         });
 
         btnRSS.setText("RSS");
+        btnRSS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRSSActionPerformed(evt);
+            }
+        });
 
         btnReset.setText("Reset");
 
@@ -240,6 +245,12 @@ public class Interface extends javax.swing.JFrame {
         System.out.println(sort.algorithmPRI(listPRI).toString()); //Retorna un ArrayList ordenado
         // Llamar graficador con el ArrayList que se devuelve con el sort
     }//GEN-LAST:event_btnPRIActionPerformed
+
+    private void btnRSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRSSActionPerformed
+        ArrayList<Requirements> listRSS = new ArrayList<>(PETITIONS);
+        System.out.println(sort.algorithmRSS(listRSS).toString()); //Retorna un ArrayList ordenado
+        // Llamar graficador con el ArrayList que se devuelve con el sort
+    }//GEN-LAST:event_btnRSSActionPerformed
 
     /**
      * @param args the command line arguments
