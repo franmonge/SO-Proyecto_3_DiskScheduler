@@ -158,8 +158,9 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoadFileActionPerformed
 
     private void btnFIFOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFIFOActionPerformed
-        ArrayList<Requirements> listFIFO = Interface.PETITIONS;
-        sort.algorithmFIFO(listFIFO);
+        ArrayList<Requirements> listFIFO = new ArrayList<>(PETITIONS);
+        System.out.println(sort.algorithmFIFO(listFIFO).toString()); //Retorna un ArrayList ordenado
+        // Llamar graficador con el ArrayList que se devuelve con el sort
     }//GEN-LAST:event_btnFIFOActionPerformed
 
     private void BatchAddProcess(String processName,Integer priority, Integer timestamp) {                                              
@@ -224,8 +225,9 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfigurationActionPerformed
 
     private void btnLIFOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLIFOActionPerformed
-        ArrayList<Requirements> listLIFO = Interface.PETITIONS;
-        sort.algorithmLIFO(listLIFO);
+        ArrayList<Requirements> listLIFO = new ArrayList<>(PETITIONS);
+        System.out.println(sort.algorithmLIFO(listLIFO).toString()); //Retorna un ArrayList ordenado
+        // Llamar graficador con el ArrayList que se devuelve con el sort
     }//GEN-LAST:event_btnLIFOActionPerformed
 
     /**
