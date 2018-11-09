@@ -25,12 +25,13 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="btnConfiguration" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnLoadFile" max="32767" attributes="0"/>
-                      <Component id="btnFIFO" max="32767" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="btnConfiguration" max="32767" attributes="0"/>
+                  <Component id="btnFIFO" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnLoadFile" alignment="1" max="32767" attributes="0"/>
+                  <Component id="btnLIFO" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnPRI" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnRSS" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="267" max="32767" attributes="0"/>
           </Group>
@@ -45,7 +46,13 @@
               <Component id="btnLoadFile" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnFIFO" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="173" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="btnLIFO" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="btnPRI" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="btnRSS" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="41" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -74,6 +81,24 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConfigurationActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnLIFO">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="LIFO"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLIFOActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnPRI">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="PRI"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnRSS">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="RSS"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

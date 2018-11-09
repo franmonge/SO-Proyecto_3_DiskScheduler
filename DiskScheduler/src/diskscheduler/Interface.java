@@ -11,19 +11,22 @@ import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import diskscheduler.Algorithms;
 
 /**
  *
  * @author FranM
  */
 public class Interface extends javax.swing.JFrame {
-    Controller controlador;
-    static ArrayList<String> PETITIONS = new ArrayList<String>();
+    Controller controller;
+    Algorithms sort;
+    static ArrayList<Requirements> PETITIONS = new ArrayList<Requirements>();
     /**
      * Creates new form Interfaz
      */
     public Interface() {
-        controlador = Controller.getInstance();        
+        controller = Controller.getInstance();
+        sort = new Algorithms();
         initComponents();
     }
 
@@ -39,6 +42,9 @@ public class Interface extends javax.swing.JFrame {
         btnLoadFile = new javax.swing.JButton();
         btnFIFO = new javax.swing.JButton();
         btnConfiguration = new javax.swing.JButton();
+        btnLIFO = new javax.swing.JButton();
+        btnPRI = new javax.swing.JButton();
+        btnRSS = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,17 +69,30 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
+        btnLIFO.setText("LIFO");
+        btnLIFO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLIFOActionPerformed(evt);
+            }
+        });
+
+        btnPRI.setText("PRI");
+
+        btnRSS.setText("RSS");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnConfiguration)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnLoadFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnFIFO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnConfiguration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFIFO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLoadFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLIFO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPRI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRSS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(267, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -85,7 +104,13 @@ public class Interface extends javax.swing.JFrame {
                 .addComponent(btnLoadFile)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnFIFO)
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLIFO)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnPRI)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRSS)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -100,10 +125,13 @@ public class Interface extends javax.swing.JFrame {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 String file = chooser.getSelectedFile().getPath();
                 String line;
+                String[] arrOfStr = null;
                 FileReader f = new FileReader(file);
                 BufferedReader buffer = new BufferedReader(f);
-                while((line = buffer.readLine()) != null){
-                    PETITIONS.add(line);
+                while((line = buffer.readLine()) != null){                    
+                    arrOfStr = line.split(":");
+                    Requirements requirement = new Requirements(arrOfStr[0], Integer.parseInt(arrOfStr[1]));
+                    PETITIONS.add(requirement);
                 }
             }
             System.out.println("Archivo .txt cargado correctamente");
@@ -113,15 +141,14 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoadFileActionPerformed
 
     private void btnFIFOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFIFOActionPerformed
-        for(int i=0; i<PETITIONS.size();i++){
-            System.out.println(PETITIONS.get(i));
-        }
+        ArrayList<Requirements> listFIFO = Interface.PETITIONS;
+        sort.algorithmFIFO(listFIFO);
     }//GEN-LAST:event_btnFIFOActionPerformed
 
     private void BatchAddProcess(String processName,Integer priority, Integer timestamp) {                                              
         if(!(processName == null)){                
                 Process nuevoProceso  = new Process(processName, priority, timestamp);  
-                controlador.addProcess(nuevoProceso);
+                controller.addProcess(nuevoProceso);
         }else{
             JOptionPane.showMessageDialog(null,  "Process ID can't be empty", "Null PID Error", 0);
         }
@@ -158,7 +185,7 @@ public class Interface extends javax.swing.JFrame {
                 Integer initialPoint = Integer.parseInt(arrOfStr[1]);
                 JOptionPane.showMessageDialog(null, "Total Tracks: " + totalTracks + "\n Initial Point: " + initialPoint, "Configuration", 1);
                 
-                controlador.setConfiguration(totalTracks, initialPoint);
+                controller.setConfiguration(totalTracks, initialPoint);
                 
                 while((line = buffer.readLine()) != null){
                     //Las primeras 2 lineas del txt son de configuracion
@@ -178,6 +205,10 @@ public class Interface extends javax.swing.JFrame {
             System.out.println("Error: no se pudo cargar el archivo");
         }
     }//GEN-LAST:event_btnConfigurationActionPerformed
+
+    private void btnLIFOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLIFOActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLIFOActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,6 +249,9 @@ public class Interface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfiguration;
     private javax.swing.JButton btnFIFO;
+    private javax.swing.JButton btnLIFO;
     private javax.swing.JButton btnLoadFile;
+    private javax.swing.JButton btnPRI;
+    private javax.swing.JButton btnRSS;
     // End of variables declaration//GEN-END:variables
 }
