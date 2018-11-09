@@ -6,7 +6,6 @@
 package diskscheduler;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  *
@@ -16,7 +15,6 @@ public class Algorithms {
     public void algorithmFIFO(ArrayList<Requirements> listFIFO){
         ArrayList<Process> processes = Controller.getInstance().getProcesses();
         Process olderProcess = null;
-        System.out.println("process size: " + processes.size());
         
         for(int i = 0; i <= processes.size(); i++){
             olderProcess = Controller.getInstance().getOlderProcess(processes);
@@ -41,8 +39,31 @@ public class Algorithms {
         }     
     }
     
-    public void algorithmLIFO(){
-    
+    public void algorithmLIFO(ArrayList<Requirements> listLIFO){
+        ArrayList<Process> processes = Controller.getInstance().getProcesses();
+        Process newestProcess = null;
+        
+        for(int i = 0; i <= processes.size(); i++){
+            newestProcess = Controller.getInstance().getNewestProcess(processes);
+            System.out.println("newest: " + newestProcess.getName());
+            System.out.println("listFifo size: " + listLIFO.size());
+            System.out.println(listLIFO.toString());
+            
+            for(int j = 0; j < listLIFO.size(); j++){
+                //System.out.println("entra for de listFIFO");
+                if(listLIFO.get(j).getProcess().equals(newestProcess.getName())){
+                    System.out.println(listLIFO.get(j).toString());                    
+                    listLIFO.remove(j);
+                    j--;
+                }            
+            }
+            
+            processes.remove(newestProcess);
+            if(processes.size() != 0)
+                i--;
+            //System.out.println("size del i:" + i);
+            //System.out.println("process size: " + processes.size());
+        } 
     }
     
     public void algorithmRSS(){

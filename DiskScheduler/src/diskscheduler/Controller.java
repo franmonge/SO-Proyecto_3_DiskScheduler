@@ -51,6 +51,18 @@ public class Controller {
         return olderProcess;
     }
     
+    public Process getNewestProcess(ArrayList<Process> processes){
+        Process newestProcess = null;
+        if(processes.size()>0){
+            newestProcess = processes.get(0);
+            for(Process process: processes){
+                if(process.getTimestamp() > newestProcess.getTimestamp())
+                    newestProcess = process;
+            }
+        }        
+        return newestProcess;
+    }
+    
     public ArrayList<Process> deleteOlderProcess(ArrayList<Process> processes){
         Process olderProcess = processes.get(1);
         Integer index = 0;
