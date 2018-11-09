@@ -10,8 +10,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import diskscheduler.Algorithms;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -93,6 +93,11 @@ public class Interface extends javax.swing.JFrame {
         });
 
         btnReset.setText("Reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -251,6 +256,10 @@ public class Interface extends javax.swing.JFrame {
         System.out.println(sort.algorithmRSS(listRSS).toString()); //Retorna un ArrayList ordenado
         // Llamar graficador con el ArrayList que se devuelve con el sort
     }//GEN-LAST:event_btnRSSActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        Controller.getInstance().resetSystem();
+    }//GEN-LAST:event_btnResetActionPerformed
 
     /**
      * @param args the command line arguments

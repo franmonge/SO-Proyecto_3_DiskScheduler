@@ -74,25 +74,7 @@ public class Controller {
         }        
         return priorityProcess;
     }
-    
-    public ArrayList<Process> deleteOlderProcess(ArrayList<Process> processes){
-        Process olderProcess = processes.get(1);
-        Integer index = 0;
-        if(processes.size()>0){
-            for(Process process: processes){
-                //System.out.println("size: " + this.processes.size());
-                index++;
-                //System.out.println("index:" + index);
-                if(process.getTimestamp() < olderProcess.getTimestamp()){
-                    System.out.println("entra a remove");
-                    processes.remove(process);
-                    //index = 0;
-                }
-            }
-        } 
-        return processes;
-    }
-    
+        
     public void setConfiguration(Integer totalTracks, Integer initialPosition){
         config = new Configuration(totalTracks, initialPosition);
     }
