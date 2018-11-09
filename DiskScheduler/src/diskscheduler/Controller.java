@@ -63,6 +63,18 @@ public class Controller {
         return newestProcess;
     }
     
+    public Process getHighestPriorityProcess(ArrayList<Process> processes){
+        Process priorityProcess = null;
+        if(processes.size()>0){
+            priorityProcess = processes.get(0);
+            for(Process process: processes){
+                if(process.getPriority() > priorityProcess.getPriority())
+                    priorityProcess = process;
+            }
+        }        
+        return priorityProcess;
+    }
+    
     public ArrayList<Process> deleteOlderProcess(ArrayList<Process> processes){
         Process olderProcess = processes.get(1);
         Integer index = 0;

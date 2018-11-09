@@ -55,11 +55,30 @@ public class Algorithms {
         return requirements;
     }
     
-    public void algorithmRSS(){
+    public ArrayList<Requirements> algorithmPRI(ArrayList<Requirements> listPRI){
+        ArrayList<Process> processes = new ArrayList<>(Controller.getInstance().getProcesses());
+        ArrayList<Requirements> requirements = new ArrayList<>();
+        Process priorityProcess = null;
+        
+        for(int i = 0; i <= processes.size(); i++){
+            priorityProcess = Controller.getInstance().getHighestPriorityProcess(processes);
+            
+            for(int j = 0; j < listPRI.size(); j++){
+                if(listPRI.get(j).getProcess().equals(priorityProcess.getName())){
+                    requirements.add(listPRI.get(j));                    
+                    listPRI.remove(j);
+                    j--;
+                }            
+            }
+            processes.remove(priorityProcess);
+            if(processes.size() != 0)
+                i--;
+        } 
+        return requirements;
+    }
+    
+    public void algorithmRSS(ArrayList<Requirements> listRSS){
     
     }
     
-    public void algorithmPRI(){
-    
-    }
 }
