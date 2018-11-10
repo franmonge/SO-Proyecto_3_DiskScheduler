@@ -84,6 +84,7 @@
     <Component class="javax.swing.JButton" name="btnLoadFile">
       <Properties>
         <Property name="text" type="java.lang.String" value="Load File"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select a file that contains a set of petitions of access requests to tracks."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLoadFileActionPerformed"/>
@@ -100,7 +101,7 @@
     <Component class="javax.swing.JButton" name="btnConfiguration">
       <Properties>
         <Property name="text" type="java.lang.String" value="Configuration"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" value="Select a configuration file that contains the parameters initial point and number of tracks."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConfigurationActionPerformed"/>
@@ -133,6 +134,7 @@
     <Component class="javax.swing.JButton" name="btnReset">
       <Properties>
         <Property name="text" type="java.lang.String" value="Reset"/>
+        <Property name="toolTipText" type="java.lang.String" value="Resets the program to the initial state for starting again."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResetActionPerformed"/>
@@ -143,6 +145,7 @@
     <Component class="javax.swing.JButton" name="btnContrast">
       <Properties>
         <Property name="text" type="java.lang.String" value="Contrast"/>
+        <Property name="toolTipText" type="java.lang.String" value="Press this button to display a window with the options of algorithms to execute, once the configuration files and requisitions were set."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnContrastActionPerformed"/>

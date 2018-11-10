@@ -155,6 +155,7 @@
         <Component class="javax.swing.JCheckBox" name="chkbtnRSS">
           <Properties>
             <Property name="text" type="java.lang.String" value="RSS"/>
+            <Property name="toolTipText" type="java.lang.String" value="Check this checkbox if you want to include this ordering algorithm in the comparison to execute."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkbtnRSSActionPerformed"/>
@@ -173,6 +174,7 @@
         <Component class="javax.swing.JCheckBox" name="chkbtnPRI">
           <Properties>
             <Property name="text" type="java.lang.String" value="PRI"/>
+            <Property name="toolTipText" type="java.lang.String" value="Check this checkbox if you want to include this ordering algorithm in the comparison to execute."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkbtnPRIActionPerformed"/>
@@ -181,6 +183,7 @@
         <Component class="javax.swing.JCheckBox" name="chkbtnFIFO">
           <Properties>
             <Property name="text" type="java.lang.String" value="FIFO"/>
+            <Property name="toolTipText" type="java.lang.String" value="Check this checkbox if you want to include this ordering algorithm in the comparison to execute."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkbtnFIFOActionPerformed"/>
@@ -189,6 +192,7 @@
         <Component class="javax.swing.JCheckBox" name="chkbtnLIFO">
           <Properties>
             <Property name="text" type="java.lang.String" value="LIFO"/>
+            <Property name="toolTipText" type="java.lang.String" value="Check this checkbox if you want to include this ordering algorithm in the comparison to execute."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkbtnLIFOActionPerformed"/>
@@ -197,6 +201,7 @@
         <Component class="javax.swing.JCheckBox" name="chkbtnCSCAN">
           <Properties>
             <Property name="text" type="java.lang.String" value="C-SCAN"/>
+            <Property name="toolTipText" type="java.lang.String" value="Check this checkbox if you want to include this ordering algorithm in the comparison to execute."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkbtnCSCANActionPerformed"/>
@@ -205,6 +210,7 @@
         <Component class="javax.swing.JCheckBox" name="chkbtnSCAN">
           <Properties>
             <Property name="text" type="java.lang.String" value="SCAN"/>
+            <Property name="toolTipText" type="java.lang.String" value="Check this checkbox if you want to include this ordering algorithm in the comparison to execute."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkbtnSCANActionPerformed"/>
@@ -213,6 +219,7 @@
         <Component class="javax.swing.JCheckBox" name="chkbtnSSTF">
           <Properties>
             <Property name="text" type="java.lang.String" value="SSTF"/>
+            <Property name="toolTipText" type="java.lang.String" value="Check this checkbox if you want to include this ordering algorithm in the comparison to execute."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkbtnSSTFActionPerformed"/>
@@ -221,6 +228,7 @@
         <Component class="javax.swing.JCheckBox" name="chkbtnFIFO2">
           <Properties>
             <Property name="text" type="java.lang.String" value="FIFO"/>
+            <Property name="toolTipText" type="java.lang.String" value="Check this checkbox if you want to include this ordering algorithm in the comparison to execute."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkbtnFIFO2ActionPerformed"/>
@@ -229,6 +237,7 @@
         <Component class="javax.swing.JCheckBox" name="chkbtnFSCAN">
           <Properties>
             <Property name="text" type="java.lang.String" value="FSCAN"/>
+            <Property name="toolTipText" type="java.lang.String" value="Check this checkbox if you want to include this ordering algorithm in the comparison to execute."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkbtnFSCANActionPerformed"/>
@@ -237,6 +246,7 @@
         <Component class="javax.swing.JCheckBox" name="chkbtnNSTEPSCAN">
           <Properties>
             <Property name="text" type="java.lang.String" value="N-Step Scan"/>
+            <Property name="toolTipText" type="java.lang.String" value="Check this checkbox if you want to include this ordering algorithm in the comparison to execute."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkbtnNSTEPSCANActionPerformed"/>
@@ -247,6 +257,7 @@
     <Component class="javax.swing.JButton" name="btnShowContrastPlot">
       <Properties>
         <Property name="text" type="java.lang.String" value="Show"/>
+        <Property name="toolTipText" type="java.lang.String" value="This button will execute the comparison of all the algorithms that were selected, showing for each one statistics in the upper table and the comparative graph."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnShowContrastPlotActionPerformed"/>
