@@ -68,6 +68,7 @@ public class Interface extends javax.swing.JFrame {
         });
 
         btnConfiguration.setText("Configuration");
+        btnConfiguration.setToolTipText("");
         btnConfiguration.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfigurationActionPerformed(evt);
@@ -115,7 +116,7 @@ public class Interface extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(btnConfiguration, javax.swing.GroupLayout.PREFERRED_SIZE, 112, Short.MAX_VALUE)
+                .addComponent(btnConfiguration, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
                 .addGap(60, 60, 60)
                 .addComponent(btnLoadFile, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
@@ -189,9 +190,14 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoadFileActionPerformed
 
     private void btnFIFOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFIFOActionPerformed
+        Integer currentTrack = controller.getCurrentPosition();
         ArrayList<Requirements> listFIFO = new ArrayList<>(Controller.PETITIONS);
-        System.out.println(sort.algorithmFIFO(listFIFO).toString()); //Retorna un ArrayList ordenado
+        listFIFO = sort.algorithmFIFO(listFIFO); //Retorna un ArrayList ordenado
+        System.out.println(listFIFO.toString());
         // Llamar graficador con el ArrayList que se devuelve con el sort
+        System.out.println("lifo sixe: " + listFIFO.size());
+        System.out.println(controller.getDistance(listFIFO, currentTrack));
+        System.out.println(controller.getDistance(listFIFO, currentTrack) / listFIFO.size());
     }//GEN-LAST:event_btnFIFOActionPerformed
 
     private void BatchAddProcess(String processName,Integer priority, Integer timestamp) {                                              

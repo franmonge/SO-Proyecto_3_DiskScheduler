@@ -32,6 +32,7 @@ public class Algorithms {
             if(processes.size() != 0)
                 i--;
         }
+        Controller.getInstance().setCurrentPosition(requirements.get(requirements.size()-1).getTrack());
         return requirements;
     }
     
