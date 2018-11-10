@@ -9,7 +9,7 @@ package diskscheduler;
  *
  * @author FranM
  */
-public class Requirements {
+public class Requirements implements Comparable {
     String process;
     Integer track;
 
@@ -37,5 +37,12 @@ public class Requirements {
     @Override
     public String toString() {
         return "Requirements{" + "process=" + process + ", track=" + track + '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        int track = ((Requirements)o).getTrack();
+        return this.getTrack()-track;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

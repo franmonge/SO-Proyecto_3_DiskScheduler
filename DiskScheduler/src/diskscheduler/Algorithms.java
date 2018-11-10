@@ -107,133 +107,140 @@ public class Algorithms {
     // ---------- Based on the requested ----------
     
     
-    public ArrayList<String> getSequenceByFIFO2(ArrayList<String> requirements){
-        ArrayList<String> res = new ArrayList<String>();
-        for(int i = 0; i < requirements.size(); i++){
-            String nextTrack = getNextByFIFO2(requirements);
+    public ArrayList<Requirements> getSequenceByFIFO2(ArrayList<Requirements> requirementsFIFO2){
+        System.out.println("Actual requirements size inside FIFO2: " + String.valueOf(requirementsFIFO2.size()));
+        ArrayList<Requirements> requirements = new ArrayList<Requirements>();
+        for(Requirements req: requirementsFIFO2){
+            requirements.add(req);
+        }
+        ArrayList<Requirements> res = new ArrayList<Requirements>();
+        for(int i = 0; i < requirementsFIFO2.size(); i++){
+            Requirements nextTrack = getNextByFIFO2(requirements);
             res.add(nextTrack);
             requirements.remove(nextTrack);
+            System.out.println("I'm at iteration: " + String.valueOf(i));
         }
+        System.out.println("Actual requirements size about to be delivered:" + String.valueOf(requirements.size()));
         return res;
     }
     
-    public String getNextByFIFO2(ArrayList<String> requirements){
+    public Requirements getNextByFIFO2(ArrayList<Requirements> requirements){
         return requirements.get(0);
     }
     
-    public ArrayList<String> getSequenceBySSTF(ArrayList<String> requirements, Integer initialPos){
+    public ArrayList<Requirements> getSequenceBySSTF(ArrayList<Requirements> requirements, Integer initialPos){
         Collections.sort(requirements);
-        ArrayList<String> res = new ArrayList<String>();
+        ArrayList<Requirements> res = new ArrayList<Requirements>();
         Integer currentPos = initialPos;
         for(int i = 0; i < requirements.size(); i++){
-            String nextTrack = getNextBySSTF(requirements, currentPos);
-            currentPos = Integer.parseInt(nextTrack);
+            Requirements nextTrack = getNextBySSTF(requirements, currentPos);
+            currentPos = nextTrack.getTrack();
             res.add(nextTrack);
             requirements.remove(nextTrack);
         }
         return res;
     }
     
-    private String getNextBySSTF(ArrayList<String> requirements, Integer currentPosition){
+    private Requirements getNextBySSTF(ArrayList<Requirements> requirements, Integer currentPosition){ //TODO
         Collections.sort(requirements);
-        Integer closest = currentPosition+10000; // badass code
+        Requirements closest = requirements.get(0); // badass code
         
-        for(String track: requirements){
-            if(Math.abs(currentPosition-Integer.parseInt(track)) < Math.abs(currentPosition - closest))
-                closest = Integer.parseInt(track);
+        for(Requirements req: requirements){
+            if(Math.abs(currentPosition-req.getTrack()) < Math.abs(currentPosition - closest.getTrack()))
+                closest = req;
         }
-        return String.valueOf(closest);   
+        return closest;   
     }
     
-    public ArrayList<String> getSequenceBySCAN(ArrayList<String> requirements, Integer initialPos){
+    public ArrayList<Requirements> getSequenceBySCAN(ArrayList<Requirements> requirements, Integer initialPos){
         Collections.sort(requirements);
-        ArrayList<String> res = new ArrayList<String>();
+        ArrayList<Requirements> res = new ArrayList<Requirements>();
         Integer currentPos = initialPos;
         for(int i = 0; i < requirements.size(); i++){
-            String nextTrack;
+            Requirements nextTrack;
             if (isThereANextValue(requirements, currentPos, true)){
                 nextTrack = getNextBySCAN(requirements, currentPos, true);
             }else{
                 nextTrack = getNextBySCAN(requirements, currentPos, false);
             }
-            currentPos = Integer.parseInt(nextTrack);
+            currentPos = nextTrack.getTrack();
             res.add(nextTrack);
             requirements.remove(nextTrack);
         }
         return res;
     }
     
-    private String getNextBySCAN(ArrayList<String> requirements, Integer currentPos, boolean upward){
+    private Requirements getNextBySCAN(ArrayList<Requirements> requirements, Integer currentPos, boolean upward){
         Collections.sort(requirements);
-        Integer nextVal = 0;
+        Requirements nextTrack = null;
         if(upward){
-            for(String track: requirements){
-                if(Integer.parseInt(track) >= currentPos){
-                    nextVal = Integer.parseInt(track);
+            for(Requirements track: requirements){
+                if(track.getTrack() >= currentPos){
+                    nextTrack = track;
                     break;
                 }
             }
         }else{
             Collections.reverse(requirements);
-            for(String track: requirements){
-                if(Integer.parseInt(track) <= currentPos){
-                    nextVal = Integer.parseInt(track);
+            for(Requirements track: requirements){
+                if(track.getTrack() <= currentPos){
+                    nextTrack = track;
                     break;
                 }
             }
         }
         
-        return String.valueOf(nextVal);
+        return nextTrack;
     }
     
-    private boolean isThereANextValue(ArrayList<String> requirements, Integer currentPos, boolean upward){
+    private boolean isThereANextValue(ArrayList<Requirements> requirements, Integer currentPos, boolean upward){
         boolean res = false;
-        for(String track: requirements){
+        for(Requirements track: requirements){
             if (upward){
-                if(Integer.valueOf(track) >= currentPos)
+                if(track.getTrack() >= currentPos)
                     res = true;
             }else{
-                if(Integer.valueOf(track) <= currentPos)
+                if(track.getTrack() <= currentPos)
                     res = true;
             }
         }
         return res;
     }
     
-    public ArrayList<String> getSequenceByC_SCAN(ArrayList<String> requirements, Integer initialPos){
+    public ArrayList<Requirements> getSequenceByC_SCAN(ArrayList<Requirements> requirements, Integer initialPos){
         Collections.sort(requirements);
-        ArrayList<String> res = new ArrayList<String>();
+        ArrayList<Requirements> res = new ArrayList<Requirements>();
         Integer currentPos = initialPos;
         
         for(int i = 0; i < requirements.size(); i++){
-            String nextTrack = getNextByC_SCAN(requirements, currentPos);
-            currentPos = Integer.parseInt(nextTrack);
+            Requirements nextTrack = getNextByC_SCAN(requirements, currentPos);
+            currentPos = nextTrack.getTrack();
             res.add(nextTrack);
             requirements.remove(nextTrack);
         }
         return res;
     }
     
-    private String getNextByC_SCAN(ArrayList<String> requirements, Integer currentPosition){
+    private Requirements getNextByC_SCAN(ArrayList<Requirements> requirements, Integer currentPosition){
         Collections.sort(requirements);
-        Integer next = currentPosition+10000;
+        Requirements next = null;
         if (!isThereANextValue(requirements, currentPosition, true)){
-            next = Integer.parseInt(requirements.get(0));
+            next = requirements.get(0);
         }else{
-            for(String track: requirements){
-                if(Integer.parseInt(track) >= currentPosition){
-                    next = Integer.parseInt(track);
+            for(Requirements track: requirements){
+                if(track.getTrack() >= currentPosition){
+                    next = track;
                     break;
                 }
             }
         }
-        return String.valueOf(next);
+        return next;
     }
     
-    public ArrayList<String> getSequenceByN_STEP_SCAN(ArrayList<String> requirements, Integer initialPos, Integer batchSize){
+    public ArrayList<Requirements> getSequenceByN_STEP_SCAN(ArrayList<Requirements> requirements, Integer initialPos, Integer batchSize){
         Collections.sort(requirements);
-        ArrayList<String> res = new ArrayList<String>();
-        ArrayList<String> batch = new ArrayList<String>();
+        ArrayList<Requirements> res = new ArrayList<Requirements>();
+        ArrayList<Requirements> batch = new ArrayList<Requirements>();
         Integer currentPos = initialPos;
         Integer realIndex= 0;
                 
@@ -246,17 +253,17 @@ public class Algorithms {
                 requirements.remove(0);
             }
             res.addAll(getSequenceBySCAN(batch, currentPos));
-            currentPos = Integer.parseInt(res.get(res.size()-1));
+            currentPos = res.get(res.size()-1).getTrack();
         }
         
         return res;
     }
     
-    public ArrayList<String> getSequenceByFSCAN(ArrayList<String> requirements, Integer initialPos){
+    public ArrayList<Requirements> getSequenceByFSCAN(ArrayList<Requirements> requirements, Integer initialPos){
         return null;
     }
     
-    private String getNextByFSCAN(){
+    private Requirements getNextByFSCAN(){
         return null;
     }
     
