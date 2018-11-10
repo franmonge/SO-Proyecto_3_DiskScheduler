@@ -319,7 +319,8 @@ public class ContrasterUI extends javax.swing.JFrame {
             // TODO add your handling code here:
             if(chkbtnRSS.isSelected()){
                 Integer currentTrack = controlador.getCurrentPosition();
-                ArrayList<Requirements> orderedList = algorithmsResolver.algorithmRSS(Controller.PETITIONS);
+                ArrayList<Requirements> list = new ArrayList<>(Controller.PETITIONS);
+                ArrayList<Requirements> orderedList = algorithmsResolver.algorithmRSS(list);
                 csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "RSS");
                 Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
                 Double averageDistance = (double)totalDistance / orderedList.size();
@@ -330,7 +331,8 @@ public class ContrasterUI extends javax.swing.JFrame {
             
             if(chkbtnPRI.isSelected()){
                 Integer currentTrack = controlador.getCurrentPosition();
-                ArrayList<Requirements> orderedList = algorithmsResolver.algorithmPRI(Controller.PETITIONS);
+                ArrayList<Requirements> list = new ArrayList<>(Controller.PETITIONS);
+                ArrayList<Requirements> orderedList = algorithmsResolver.algorithmPRI(list);
                 csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "PRI");
                 Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
                 Double averageDistance = (double)totalDistance / orderedList.size();
@@ -341,7 +343,8 @@ public class ContrasterUI extends javax.swing.JFrame {
             
             if(chkbtnFIFO.isSelected()){
                 Integer currentTrack = controlador.getCurrentPosition();
-                ArrayList<Requirements> orderedList = algorithmsResolver.algorithmFIFO(Controller.PETITIONS);
+                ArrayList<Requirements> list = new ArrayList<>(Controller.PETITIONS);
+                ArrayList<Requirements> orderedList = algorithmsResolver.algorithmFIFO(list);
                 csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "FIFO");
                 Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
                 Double averageDistance = (double)totalDistance / orderedList.size();
@@ -352,7 +355,8 @@ public class ContrasterUI extends javax.swing.JFrame {
             
             if(chkbtnLIFO.isSelected()){
                 Integer currentTrack = controlador.getCurrentPosition();
-                ArrayList<Requirements> orderedList = algorithmsResolver.algorithmLIFO(Controller.PETITIONS);
+                ArrayList<Requirements> list = new ArrayList<>(Controller.PETITIONS);
+                ArrayList<Requirements> orderedList = algorithmsResolver.algorithmLIFO(list);
                 csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "LIFO");
                 Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
                 Double averageDistance = (double)totalDistance / orderedList.size();
@@ -363,7 +367,8 @@ public class ContrasterUI extends javax.swing.JFrame {
             
             if(chkbtnFIFO2.isSelected()){
                 Integer currentTrack = controlador.getCurrentPosition();
-                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceByFIFO2(Controller.PETITIONS);
+                ArrayList<Requirements> list = new ArrayList<>(Controller.PETITIONS);
+                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceByFIFO2(list);
                 csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "FIFO2");
                 Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
                 Double averageDistance = (double)totalDistance / orderedList.size();
@@ -374,7 +379,8 @@ public class ContrasterUI extends javax.swing.JFrame {
             
             if(chkbtnSSTF.isSelected()){
                 Integer currentTrack = controlador.getCurrentPosition();
-                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceBySSTF(Controller.PETITIONS,controlador.getCurrentPosition());
+                ArrayList<Requirements> list = new ArrayList<>(Controller.PETITIONS);
+                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceBySSTF(list,controlador.getCurrentPosition());
                 csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "SSTF");
                 Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
                 Double averageDistance = (double)totalDistance / orderedList.size();
@@ -385,7 +391,8 @@ public class ContrasterUI extends javax.swing.JFrame {
             
             if(chkbtnSCAN.isSelected()){
                 Integer currentTrack = controlador.getCurrentPosition();
-                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceBySCAN(Controller.PETITIONS,controlador.getCurrentPosition());
+                ArrayList<Requirements> list = new ArrayList<>(Controller.PETITIONS);
+                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceBySCAN(list,controlador.getCurrentPosition());
                 csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "SCAN");
                 Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
                 Double averageDistance = (double)totalDistance / orderedList.size();
@@ -396,7 +403,8 @@ public class ContrasterUI extends javax.swing.JFrame {
             
             if(chkbtnCSCAN.isSelected()){
                 Integer currentTrack = controlador.getCurrentPosition();
-                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceByC_SCAN(Controller.PETITIONS,controlador.getCurrentPosition());
+                ArrayList<Requirements> list = new ArrayList<>(Controller.PETITIONS);
+                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceByC_SCAN(list,controlador.getCurrentPosition());
                 csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "C-SCAN");
                 Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
                 Double averageDistance = (double)totalDistance / orderedList.size();
@@ -407,7 +415,8 @@ public class ContrasterUI extends javax.swing.JFrame {
             
             if(chkbtnNSTEPSCAN.isSelected()){
                 Integer currentTrack = controlador.getCurrentPosition();
-                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceByN_STEP_SCAN(Controller.PETITIONS,controlador.getCurrentPosition(),5);
+                ArrayList<Requirements> list = new ArrayList<>(Controller.PETITIONS);
+                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceByN_STEP_SCAN(list,controlador.getCurrentPosition(),5);
                 csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "N-Step-SCAN");
                 Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
                 Double averageDistance = (double)totalDistance / orderedList.size();
@@ -418,7 +427,8 @@ public class ContrasterUI extends javax.swing.JFrame {
 
             if(chkbtnFSCAN.isSelected()){
                 Integer currentTrack = controlador.getCurrentPosition();
-                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceByFSCAN(Controller.PETITIONS,controlador.getCurrentPosition());
+                ArrayList<Requirements> list = new ArrayList<>(Controller.PETITIONS);
+                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceByFSCAN(list,controlador.getCurrentPosition());
                 csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "FSCAN");
                 Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
                 Double averageDistance = (double)totalDistance / orderedList.size();
