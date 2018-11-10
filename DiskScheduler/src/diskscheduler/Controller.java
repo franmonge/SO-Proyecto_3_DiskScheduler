@@ -15,14 +15,19 @@ public class Controller {
     private static Controller instance = null;
     private Configuration config;
     private ArrayList<Process> processes;
+    private Integer currentPosition;
+    private Integer currentIndex;
+    public static ArrayList<Requirements> PETITIONS;
 
     public Controller() {
         processes = new ArrayList<>();
     }
     
     public static Controller getInstance(){
-        if(instance == null)
+        if(instance == null){
             instance = new Controller();
+            PETITIONS = new ArrayList<Requirements>();
+        }
         return instance;
     }
     
@@ -77,6 +82,8 @@ public class Controller {
         
     public void setConfiguration(Integer totalTracks, Integer initialPosition){
         config = new Configuration(totalTracks, initialPosition);
+        this.currentPosition = initialPosition; // so we can move and know where we are
+        this.currentIndex = 0;
     }
     
     public Configuration getConfiguration(){
