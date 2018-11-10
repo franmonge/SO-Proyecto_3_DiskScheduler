@@ -21,13 +21,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Interface extends javax.swing.JFrame {
     Controller controller;
     Algorithms sort;
-    static ArrayList<Requirements> PETITIONS; //=new ArrayList<Requirements>();
+    //static ArrayList<Requirements> PETITIONS; //=new ArrayList<Requirements>();
     /**
      * Creates new form Interfaz
      */
     public Interface() {
         controller = Controller.getInstance();
-        PETITIONS = Controller.PETITIONS;
+        //PETITIONS = Controller.PETITIONS;
         sort = new Algorithms();
         initComponents();
     }
@@ -179,7 +179,7 @@ public class Interface extends javax.swing.JFrame {
                 while((line = buffer.readLine()) != null){                    
                     arrOfStr = line.split(":");
                     Requirements requirement = new Requirements(arrOfStr[0], Integer.parseInt(arrOfStr[1]));
-                    PETITIONS.add(requirement);
+                    Controller.PETITIONS.add(requirement);
                 }
             }
             System.out.println("Archivo .txt cargado correctamente");
@@ -189,7 +189,7 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoadFileActionPerformed
 
     private void btnFIFOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFIFOActionPerformed
-        ArrayList<Requirements> listFIFO = new ArrayList<>(PETITIONS);
+        ArrayList<Requirements> listFIFO = new ArrayList<>(Controller.PETITIONS);
         System.out.println(sort.algorithmFIFO(listFIFO).toString()); //Retorna un ArrayList ordenado
         // Llamar graficador con el ArrayList que se devuelve con el sort
     }//GEN-LAST:event_btnFIFOActionPerformed
@@ -256,19 +256,19 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfigurationActionPerformed
 
     private void btnLIFOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLIFOActionPerformed
-        ArrayList<Requirements> listLIFO = new ArrayList<>(PETITIONS);
+        ArrayList<Requirements> listLIFO = new ArrayList<>(Controller.PETITIONS);
         System.out.println(sort.algorithmLIFO(listLIFO).toString()); //Retorna un ArrayList ordenado
         // Llamar graficador con el ArrayList que se devuelve con el sort
     }//GEN-LAST:event_btnLIFOActionPerformed
 
     private void btnPRIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPRIActionPerformed
-        ArrayList<Requirements> listPRI = new ArrayList<>(PETITIONS);
+        ArrayList<Requirements> listPRI = new ArrayList<>(Controller.PETITIONS);
         System.out.println(sort.algorithmPRI(listPRI).toString()); //Retorna un ArrayList ordenado
         // Llamar graficador con el ArrayList que se devuelve con el sort
     }//GEN-LAST:event_btnPRIActionPerformed
 
     private void btnRSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRSSActionPerformed
-        ArrayList<Requirements> listRSS = new ArrayList<>(PETITIONS);
+        ArrayList<Requirements> listRSS = new ArrayList<>(Controller.PETITIONS);
         System.out.println(sort.algorithmRSS(listRSS).toString()); //Retorna un ArrayList ordenado
         // Llamar graficador con el ArrayList que se devuelve con el sort
     }//GEN-LAST:event_btnRSSActionPerformed
