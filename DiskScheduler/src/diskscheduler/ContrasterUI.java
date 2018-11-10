@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import org.knowm.xchart.CSVImporter;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XYChart;
 
 /**
  *
@@ -66,6 +70,7 @@ public class ContrasterUI extends javax.swing.JFrame {
         jLabel1.setText("Select the algorithms you want to contrast");
 
         chkbtnRSS.setText("RSS");
+        chkbtnRSS.setToolTipText("Check this checkbox if you want to include this ordering algorithm in the comparison to execute.");
         chkbtnRSS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkbtnRSSActionPerformed(evt);
@@ -77,6 +82,7 @@ public class ContrasterUI extends javax.swing.JFrame {
         jLabel3.setText("Based on the requested ");
 
         chkbtnPRI.setText("PRI");
+        chkbtnPRI.setToolTipText("Check this checkbox if you want to include this ordering algorithm in the comparison to execute.");
         chkbtnPRI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkbtnPRIActionPerformed(evt);
@@ -84,6 +90,7 @@ public class ContrasterUI extends javax.swing.JFrame {
         });
 
         chkbtnFIFO.setText("FIFO");
+        chkbtnFIFO.setToolTipText("Check this checkbox if you want to include this ordering algorithm in the comparison to execute.");
         chkbtnFIFO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkbtnFIFOActionPerformed(evt);
@@ -91,6 +98,7 @@ public class ContrasterUI extends javax.swing.JFrame {
         });
 
         chkbtnLIFO.setText("LIFO");
+        chkbtnLIFO.setToolTipText("Check this checkbox if you want to include this ordering algorithm in the comparison to execute.");
         chkbtnLIFO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkbtnLIFOActionPerformed(evt);
@@ -98,6 +106,7 @@ public class ContrasterUI extends javax.swing.JFrame {
         });
 
         chkbtnCSCAN.setText("C-SCAN");
+        chkbtnCSCAN.setToolTipText("Check this checkbox if you want to include this ordering algorithm in the comparison to execute.");
         chkbtnCSCAN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkbtnCSCANActionPerformed(evt);
@@ -105,6 +114,7 @@ public class ContrasterUI extends javax.swing.JFrame {
         });
 
         chkbtnSCAN.setText("SCAN");
+        chkbtnSCAN.setToolTipText("Check this checkbox if you want to include this ordering algorithm in the comparison to execute.");
         chkbtnSCAN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkbtnSCANActionPerformed(evt);
@@ -112,6 +122,7 @@ public class ContrasterUI extends javax.swing.JFrame {
         });
 
         chkbtnSSTF.setText("SSTF");
+        chkbtnSSTF.setToolTipText("Check this checkbox if you want to include this ordering algorithm in the comparison to execute.");
         chkbtnSSTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkbtnSSTFActionPerformed(evt);
@@ -119,6 +130,7 @@ public class ContrasterUI extends javax.swing.JFrame {
         });
 
         chkbtnFIFO2.setText("FIFO");
+        chkbtnFIFO2.setToolTipText("Check this checkbox if you want to include this ordering algorithm in the comparison to execute.");
         chkbtnFIFO2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkbtnFIFO2ActionPerformed(evt);
@@ -126,6 +138,7 @@ public class ContrasterUI extends javax.swing.JFrame {
         });
 
         chkbtnFSCAN.setText("FSCAN");
+        chkbtnFSCAN.setToolTipText("Check this checkbox if you want to include this ordering algorithm in the comparison to execute.");
         chkbtnFSCAN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkbtnFSCANActionPerformed(evt);
@@ -133,6 +146,7 @@ public class ContrasterUI extends javax.swing.JFrame {
         });
 
         chkbtnNSTEPSCAN.setText("N-Step Scan");
+        chkbtnNSTEPSCAN.setToolTipText("Check this checkbox if you want to include this ordering algorithm in the comparison to execute.");
         chkbtnNSTEPSCAN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkbtnNSTEPSCANActionPerformed(evt);
@@ -204,6 +218,7 @@ public class ContrasterUI extends javax.swing.JFrame {
         );
 
         btnShowContrastPlot.setText("Show");
+        btnShowContrastPlot.setToolTipText("This button will execute the comparison of all the algorithms that were selected, showing for each one statistics in the upper table and the comparative graph.");
         btnShowContrastPlot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnShowContrastPlotActionPerformed(evt);
@@ -325,6 +340,7 @@ public class ContrasterUI extends javax.swing.JFrame {
                 Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
                 Double averageDistance = (double)totalDistance / orderedList.size();
                 DefaultTableModel model = (DefaultTableModel)tblStatics.getModel();
+                model.getDataVector().removeAllElements(); 
                 model.addRow(new Object[]{"RSS",totalDistance,averageDistance});
                 tblStatics.setModel(model);
             }
@@ -337,6 +353,7 @@ public class ContrasterUI extends javax.swing.JFrame {
                 Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
                 Double averageDistance = (double)totalDistance / orderedList.size();
                 DefaultTableModel model = (DefaultTableModel)tblStatics.getModel();
+                model.getDataVector().removeAllElements();
                 model.addRow(new Object[]{"PRI",totalDistance,averageDistance});
                 tblStatics.setModel(model);
             }
@@ -437,9 +454,11 @@ public class ContrasterUI extends javax.swing.JFrame {
                 tblStatics.setModel(model);
             }
             
-            csvHandler.createCSV(algorithmsResolver.getSequenceByFIFO2(Controller.PETITIONS), controlador.getConfiguration().getInitialPosition(), "FIFO2");
+   
             
-            
+            //XYChart chart = CSVImporter.getChartFromCSVDir("C:/Users/FranM/OneDrive/Documentos/Git Repositorios/SO-Proyecto_3_DiskScheduler/DiskScheduler/", CSVImporter.DataOrientation.Rows, 600, 400);
+            //new SwingWrapper(chart).displayChart();
+            //new SwingWrapper(chart).repaintChart();
             //csvHandler.generatePlot();
             
         } catch (IOException ex) {

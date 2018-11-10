@@ -6,24 +6,13 @@
 package diskscheduler;
 
 
-import org.knowm.xchart.CSVImporter;
-import org.knowm.xchart.CSVImporter.DataOrientation;
-import org.knowm.xchart.SwingWrapper;
-import org.knowm.xchart.XYChart;
-
 /**
  *
  * @author FranM
  */
 public class DiskScheduler {
 
-     public static void main(String[] args) throws Exception {
- 
-        XYChart chart = CSVImporter.getChartFromCSVDir("C:/Users/FranM/OneDrive/Documentos/Git Repositorios/SO-Proyecto_3_DiskScheduler/DiskScheduler/", DataOrientation.Rows, 600, 400);
-
-    // Show it
-    new SwingWrapper(chart).displayChart();
-        
+     public static void main(String[] args) throws Exception {        
         Interface interfaz = new Interface();
         interfaz.setVisible(true);
     }

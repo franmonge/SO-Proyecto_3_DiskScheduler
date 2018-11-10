@@ -54,6 +54,7 @@ public class Interface extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnLoadFile.setText("Load File");
+        btnLoadFile.setToolTipText("Select a file that contains a set of petitions of access requests to tracks.");
         btnLoadFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoadFileActionPerformed(evt);
@@ -68,7 +69,7 @@ public class Interface extends javax.swing.JFrame {
         });
 
         btnConfiguration.setText("Configuration");
-        btnConfiguration.setToolTipText("");
+        btnConfiguration.setToolTipText("Select a configuration file that contains the parameters initial point and number of tracks.");
         btnConfiguration.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfigurationActionPerformed(evt);
@@ -97,6 +98,7 @@ public class Interface extends javax.swing.JFrame {
         });
 
         btnReset.setText("Reset");
+        btnReset.setToolTipText("Resets the program to the initial state for starting again.");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnResetActionPerformed(evt);
@@ -104,6 +106,7 @@ public class Interface extends javax.swing.JFrame {
         });
 
         btnContrast.setText("Contrast");
+        btnContrast.setToolTipText("Press this button to display a window with the options of algorithms to execute, once the configuration files and requisitions were set.");
         btnContrast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnContrastActionPerformed(evt);
