@@ -107,13 +107,20 @@ public class Algorithms {
     // ---------- Based on the requested ----------
     
     
-    public ArrayList<Requirements> getSequenceByFIFO2(ArrayList<Requirements> requirements){
+    public ArrayList<Requirements> getSequenceByFIFO2(ArrayList<Requirements> requirementsFIFO2){
+        System.out.println("Actual requirements size inside FIFO2: " + String.valueOf(requirementsFIFO2.size()));
+        ArrayList<Requirements> requirements = new ArrayList<Requirements>();
+        for(Requirements req: requirementsFIFO2){
+            requirements.add(req);
+        }
         ArrayList<Requirements> res = new ArrayList<Requirements>();
-        for(int i = 0; i < requirements.size(); i++){
+        for(int i = 0; i < requirementsFIFO2.size(); i++){
             Requirements nextTrack = getNextByFIFO2(requirements);
             res.add(nextTrack);
             requirements.remove(nextTrack);
+            System.out.println("I'm at iteration: " + String.valueOf(i));
         }
+        System.out.println("Actual requirements size about to be delivered:" + String.valueOf(requirements.size()));
         return res;
     }
     
