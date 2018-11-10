@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
 public class ContrasterUI extends javax.swing.JFrame {
     Controller controlador;
     CSVHandler csvHandler;
+    Algorithms algorithmsResolver;
     /**
      * Creates new form ContrasterUI
      */
@@ -25,6 +27,7 @@ public class ContrasterUI extends javax.swing.JFrame {
         controlador = Controller.getInstance(); 
         JOptionPane.showMessageDialog(null, "Process registered: " + String.valueOf(controlador.getProcesses().size()), "INFO", 1);
         csvHandler = new CSVHandler();
+        algorithmsResolver = new Algorithms();
         initComponents();
     }
 
@@ -52,6 +55,8 @@ public class ContrasterUI extends javax.swing.JFrame {
         chkbtnFSCAN = new javax.swing.JCheckBox();
         chkbtnNSTEPSCAN = new javax.swing.JCheckBox();
         btnShowContrastPlot = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -205,6 +210,36 @@ public class ContrasterUI extends javax.swing.JFrame {
             }
         });
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Algorithm", "Total Distance", "Average Distance"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -212,21 +247,27 @@ public class ContrasterUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(panelListAlgorithms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(btnShowContrastPlot)
-                .addGap(21, 21, 21))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnShowContrastPlot)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnShowContrastPlot)
-                        .addGap(32, 32, 32))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(panelListAlgorithms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(202, 202, 202)
+                        .addComponent(btnShowContrastPlot))
+                    .addComponent(panelListAlgorithms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -273,13 +314,21 @@ public class ContrasterUI extends javax.swing.JFrame {
     }//GEN-LAST:event_chkbtnNSTEPSCANActionPerformed
 
     private void btnShowContrastPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowContrastPlotActionPerformed
+        
         try {
             // TODO add your handling code here:
-            csvHandler.createCSV(new ArrayList<Requirements>(), controlador.getConfiguration().getInitialPosition(), "FIFO");
+            if(chkbtnRSS.isSelected()){
+                csvHandler.createCSV(algorithmsResolver.algorithmRSS(Controller.PETITIONS), controlador.getConfiguration().getInitialPosition(), "RSS");
+            }
+            
+            csvHandler.createCSV(algorithmsResolver.getSequenceByFIFO2(Controller.PETITIONS), controlador.getConfiguration().getInitialPosition(), "FIFO2");
             
             
+            //csvHandler.generatePlot();
             
         } catch (IOException ex) {
+            Logger.getLogger(ContrasterUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(ContrasterUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -335,6 +384,8 @@ public class ContrasterUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JPanel panelListAlgorithms;
     // End of variables declaration//GEN-END:variables
 }
