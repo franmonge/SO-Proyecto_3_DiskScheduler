@@ -16,7 +16,6 @@ public class Controller {
     private Configuration config;
     private ArrayList<Process> processes;
     private Integer currentPosition;
-    private Integer currentIndex;
     public static ArrayList<Requirements> PETITIONS;
 
     public Controller() {
@@ -79,11 +78,20 @@ public class Controller {
         }        
         return priorityProcess;
     }
+    
+    public Integer getDistance(ArrayList<Requirements> requirements, Integer initialPosition){
+        Integer counter = Math.abs(initialPosition - requirements.get(0).getTrack());
+        if(requirements.size() > 0){
+            for(int i = 1; i < requirements.size(); i++){
+            counter = counter + Math.abs(requirements.get(i-1).getTrack() - requirements.get(i).getTrack());
+            }
+        }        
+        return counter;
+    }
         
     public void setConfiguration(Integer totalTracks, Integer initialPosition){
         config = new Configuration(totalTracks, initialPosition);
         this.currentPosition = initialPosition; // so we can move and know where we are
-        this.currentIndex = 0;
     }
     
     public Configuration getConfiguration(){
@@ -97,4 +105,13 @@ public class Controller {
     public ArrayList<Process> getProcesses(){
         return processes;
     }
+
+    public Integer getCurrentPosition() {
+        return currentPosition;
+    }
+
+    public void setCurrentPosition(Integer currentPosition) {
+        this.currentPosition = currentPosition;
+    }
+    
 }

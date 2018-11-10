@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -56,7 +56,7 @@ public class ContrasterUI extends javax.swing.JFrame {
         chkbtnNSTEPSCAN = new javax.swing.JCheckBox();
         btnShowContrastPlot = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblStatics = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -210,7 +210,7 @@ public class ContrasterUI extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblStatics.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -233,11 +233,11 @@ public class ContrasterUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane1.setViewportView(tblStatics);
+        if (tblStatics.getColumnModel().getColumnCount() > 0) {
+            tblStatics.getColumnModel().getColumn(0).setResizable(false);
+            tblStatics.getColumnModel().getColumn(1).setResizable(false);
+            tblStatics.getColumnModel().getColumn(2).setResizable(false);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -318,7 +318,113 @@ public class ContrasterUI extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             if(chkbtnRSS.isSelected()){
-                csvHandler.createCSV(algorithmsResolver.algorithmRSS(Controller.PETITIONS), controlador.getConfiguration().getInitialPosition(), "RSS");
+                Integer currentTrack = controlador.getCurrentPosition();
+                ArrayList<Requirements> orderedList = algorithmsResolver.algorithmRSS(Controller.PETITIONS);
+                csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "RSS");
+                Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
+                Double averageDistance = (double)totalDistance / orderedList.size();
+                DefaultTableModel model = (DefaultTableModel)tblStatics.getModel();
+                model.addRow(new Object[]{"RSS",totalDistance,averageDistance});
+                tblStatics.setModel(model);
+            }
+            
+            if(chkbtnPRI.isSelected()){
+                Integer currentTrack = controlador.getCurrentPosition();
+                ArrayList<Requirements> orderedList = algorithmsResolver.algorithmPRI(Controller.PETITIONS);
+                csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "PRI");
+                Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
+                Double averageDistance = (double)totalDistance / orderedList.size();
+                DefaultTableModel model = (DefaultTableModel)tblStatics.getModel();
+                model.addRow(new Object[]{"PRI",totalDistance,averageDistance});
+                tblStatics.setModel(model);
+            }
+            
+            if(chkbtnFIFO.isSelected()){
+                Integer currentTrack = controlador.getCurrentPosition();
+                ArrayList<Requirements> orderedList = algorithmsResolver.algorithmFIFO(Controller.PETITIONS);
+                csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "FIFO");
+                Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
+                Double averageDistance = (double)totalDistance / orderedList.size();
+                DefaultTableModel model = (DefaultTableModel)tblStatics.getModel();
+                model.addRow(new Object[]{"FIFO",totalDistance,averageDistance});
+                tblStatics.setModel(model);
+            }
+            
+            if(chkbtnLIFO.isSelected()){
+                Integer currentTrack = controlador.getCurrentPosition();
+                ArrayList<Requirements> orderedList = algorithmsResolver.algorithmLIFO(Controller.PETITIONS);
+                csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "LIFO");
+                Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
+                Double averageDistance = (double)totalDistance / orderedList.size();
+                DefaultTableModel model = (DefaultTableModel)tblStatics.getModel();
+                model.addRow(new Object[]{"LIFO",totalDistance,averageDistance});
+                tblStatics.setModel(model);
+            }
+            
+            if(chkbtnFIFO2.isSelected()){
+                Integer currentTrack = controlador.getCurrentPosition();
+                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceByFIFO2(Controller.PETITIONS);
+                csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "FIFO2");
+                Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
+                Double averageDistance = (double)totalDistance / orderedList.size();
+                DefaultTableModel model = (DefaultTableModel)tblStatics.getModel();
+                model.addRow(new Object[]{"FIFO2",totalDistance,averageDistance});
+                tblStatics.setModel(model);
+            }
+            
+            if(chkbtnSSTF.isSelected()){
+                Integer currentTrack = controlador.getCurrentPosition();
+                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceBySSTF(Controller.PETITIONS,controlador.getCurrentPosition());
+                csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "SSTF");
+                Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
+                Double averageDistance = (double)totalDistance / orderedList.size();
+                DefaultTableModel model = (DefaultTableModel)tblStatics.getModel();
+                model.addRow(new Object[]{"SSTF",totalDistance,averageDistance});
+                tblStatics.setModel(model);
+            }
+            
+            if(chkbtnSCAN.isSelected()){
+                Integer currentTrack = controlador.getCurrentPosition();
+                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceBySCAN(Controller.PETITIONS,controlador.getCurrentPosition());
+                csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "SCAN");
+                Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
+                Double averageDistance = (double)totalDistance / orderedList.size();
+                DefaultTableModel model = (DefaultTableModel)tblStatics.getModel();
+                model.addRow(new Object[]{"SCAN",totalDistance,averageDistance});
+                tblStatics.setModel(model);
+            }
+            
+            if(chkbtnCSCAN.isSelected()){
+                Integer currentTrack = controlador.getCurrentPosition();
+                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceByC_SCAN(Controller.PETITIONS,controlador.getCurrentPosition());
+                csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "C-SCAN");
+                Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
+                Double averageDistance = (double)totalDistance / orderedList.size();
+                DefaultTableModel model = (DefaultTableModel)tblStatics.getModel();
+                model.addRow(new Object[]{"C-SCAN",totalDistance,averageDistance});
+                tblStatics.setModel(model);
+            }
+            
+            if(chkbtnNSTEPSCAN.isSelected()){
+                Integer currentTrack = controlador.getCurrentPosition();
+                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceByN_STEP_SCAN(Controller.PETITIONS,controlador.getCurrentPosition(),5);
+                csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "N-Step-SCAN");
+                Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
+                Double averageDistance = (double)totalDistance / orderedList.size();
+                DefaultTableModel model = (DefaultTableModel)tblStatics.getModel();
+                model.addRow(new Object[]{"N-Step-SCAN",totalDistance,averageDistance});
+                tblStatics.setModel(model);
+            }
+
+            if(chkbtnFSCAN.isSelected()){
+                Integer currentTrack = controlador.getCurrentPosition();
+                ArrayList<Requirements> orderedList = algorithmsResolver.getSequenceByFSCAN(Controller.PETITIONS,controlador.getCurrentPosition());
+                csvHandler.createCSV(orderedList, controlador.getConfiguration().getInitialPosition(), "FSCAN");
+                Integer totalDistance = controlador.getDistance(orderedList, currentTrack);
+                Double averageDistance = (double)totalDistance / orderedList.size();
+                DefaultTableModel model = (DefaultTableModel)tblStatics.getModel();
+                model.addRow(new Object[]{"F-SCAN",totalDistance,averageDistance});
+                tblStatics.setModel(model);
             }
             
             csvHandler.createCSV(algorithmsResolver.getSequenceByFIFO2(Controller.PETITIONS), controlador.getConfiguration().getInitialPosition(), "FIFO2");
@@ -385,7 +491,7 @@ public class ContrasterUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel panelListAlgorithms;
+    private javax.swing.JTable tblStatics;
     // End of variables declaration//GEN-END:variables
 }
