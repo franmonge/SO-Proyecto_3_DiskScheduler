@@ -15,11 +15,11 @@ import java.util.ArrayList;
  */
 public class CSVHandler {
     
-    public void createCSV(ArrayList<String> requirements, Integer initialPosition, String algorithmName) throws IOException{
+    public void createCSV(ArrayList<Requirements> requirements, Integer initialPosition, String algorithmName) throws IOException{
         FileWriter writer = new FileWriter(System.getProperty("user.dir")+ "/" +algorithmName+ ".csv"); 
         writer.write("0,"+String.valueOf(initialPosition)+"\n");
         for(int i =1 ; i <= requirements.size(); i++){
-            writer.write(String.valueOf(i) + ","+requirements.get(i)+"\n");
+            writer.write(String.valueOf(i) + ","+String.valueOf(requirements.get(i).getTrack())+"\n");
         }
         
         writer.close();
