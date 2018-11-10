@@ -17,14 +17,17 @@ public class Controller {
     private ArrayList<Process> processes;
     private Integer currentPosition;
     private Integer currentIndex;
+    public static ArrayList<Requirements> PETITIONS;
 
     public Controller() {
         processes = new ArrayList<>();
     }
     
     public static Controller getInstance(){
-        if(instance == null)
+        if(instance == null){
             instance = new Controller();
+            PETITIONS = new ArrayList<Requirements>();
+        }
         return instance;
     }
     

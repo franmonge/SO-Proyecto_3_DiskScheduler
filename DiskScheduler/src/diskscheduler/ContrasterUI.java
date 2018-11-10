@@ -275,7 +275,7 @@ public class ContrasterUI extends javax.swing.JFrame {
     private void btnShowContrastPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowContrastPlotActionPerformed
         try {
             // TODO add your handling code here:
-            csvHandler.createCSV(new ArrayList<String>(), 21, "FIFO");
+            csvHandler.createCSV(new ArrayList<String>(), controlador.getConfiguration().getInitialPosition(), "FIFO");
             
             
             

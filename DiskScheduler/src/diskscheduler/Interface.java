@@ -21,12 +21,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Interface extends javax.swing.JFrame {
     Controller controller;
     Algorithms sort;
-    static ArrayList<Requirements> PETITIONS = new ArrayList<Requirements>();
+    static ArrayList<Requirements> PETITIONS; //=new ArrayList<Requirements>();
     /**
      * Creates new form Interfaz
      */
     public Interface() {
         controller = Controller.getInstance();
+        PETITIONS = Controller.PETITIONS;
         sort = new Algorithms();
         initComponents();
     }
@@ -48,6 +49,7 @@ public class Interface extends javax.swing.JFrame {
         btnRSS = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        btnContrast = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,13 +102,20 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
+        btnContrast.setText("Contrast");
+        btnContrast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContrastActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(btnConfiguration, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                .addComponent(btnConfiguration, javax.swing.GroupLayout.PREFERRED_SIZE, 112, Short.MAX_VALUE)
                 .addGap(60, 60, 60)
                 .addComponent(btnLoadFile, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
@@ -124,6 +133,10 @@ public class Interface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jSeparator1)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnContrast)
+                .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +156,9 @@ public class Interface extends javax.swing.JFrame {
                 .addComponent(btnPRI)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRSS)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(btnContrast)
+                .addGap(14, 14, 14))
         );
 
         pack();
@@ -261,6 +276,13 @@ public class Interface extends javax.swing.JFrame {
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         Controller.getInstance().resetSystem();
     }//GEN-LAST:event_btnResetActionPerformed
+
+    private void btnContrastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContrastActionPerformed
+        // TODO add your handling code here:
+        ContrasterUI contrasterUI = new ContrasterUI();
+        contrasterUI.setVisible(true);
+        contrasterUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_btnContrastActionPerformed
 
     /**
      * @param args the command line arguments
