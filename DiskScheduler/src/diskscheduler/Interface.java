@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -39,6 +40,7 @@ public class Interface extends javax.swing.JFrame {
         btnLoadFile = new javax.swing.JButton();
         btnFIFO = new javax.swing.JButton();
         btnConfiguration = new javax.swing.JButton();
+        btnContrast = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,6 +65,13 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
+        btnContrast.setText("Contrast");
+        btnContrast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContrastActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,6 +84,10 @@ public class Interface extends javax.swing.JFrame {
                         .addComponent(btnLoadFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnFIFO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(267, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnContrast)
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,7 +98,9 @@ public class Interface extends javax.swing.JFrame {
                 .addComponent(btnLoadFile)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnFIFO)
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addComponent(btnContrast)
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -179,6 +194,13 @@ public class Interface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnConfigurationActionPerformed
 
+    private void btnContrastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContrastActionPerformed
+        // TODO add your handling code here:
+        ContrasterUI contraster = new ContrasterUI();
+        contraster.setVisible(true);
+        contraster.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_btnContrastActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -217,6 +239,7 @@ public class Interface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfiguration;
+    private javax.swing.JButton btnContrast;
     private javax.swing.JButton btnFIFO;
     private javax.swing.JButton btnLoadFile;
     // End of variables declaration//GEN-END:variables
